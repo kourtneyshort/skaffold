@@ -6,9 +6,12 @@ featureId: debug
 aliases: [/docs/how-tos/debug]
 ---
 
-Skaffold lets you set breakpoints and step through your application, even when deployed to remote Kubernetes clusters, as if the code were running locally on your machine. Skaffold detects the language runtimes of your container images, reconfigures the pods for debugging, forwards debugging ports, and then monitors for when debuggable containers come online.  IDE integrations like Cloud Code leverage Skaffold's events to automatically set up debugging sessions.
+Skaffold lets you set breakpoints and step through your application, even when deployed to remote Kubernetes clusters, as if the code were running locally
+on your machine. Skaffold detects the language runtimes of your container images, reconfigures the pods for debugging, forwards debugging ports, and then
+monitors for when debuggable containers come online.  IDE integrations like [Cloud Code for IntelliJ](https://cloud.google.com/code/docs/intellij/debugger)
+and [Cloud Code for VS Code](https://cloud.google.com/code/docs/vscode/debug) leverage Skaffold's events to automatically set up debugging sessions.
 
-Debugging is currently supported for five language runtimes.
+Debugging is supported for the following language runtimes.
 
   - Go 1.13+ (runtime ID: `go`) using [Delve](https://github.com/go-delve/delve)
   - NodeJS (runtime ID: `nodejs`) using the NodeJS Inspector (Chrome DevTools)
@@ -16,11 +19,15 @@ Debugging is currently supported for five language runtimes.
   - Python 3.5+ (runtime ID: `python`) using `debugpy` (Debug Adapter Protocol) or `pydevd`
   - .NET Core (runtime ID: `netcore`) using `vsdbg` (only for VS Code)
 
-Skaffold can usually detect the correct language runtime if present. However if you encounter difficulties then checkout the [Supported Language Runtimes]({{< relref "#supported-language-runtimes">}}) section for the exact heuristics that Skaffold uses and you can modify your application accordingly, or read about [manually configuring your container for debugging]({{< relref "#manually-configuring-your-container-for-debugging">}}).
+Skaffold can usually detect the correct language runtime if present. If you encounter difficulties, see the
+[Supported Language Runtimes]({{< relref "#supported-language-runtimes">}}) section for the heuristics that Skaffold uses. You can also
+[manually configure your container for debugging]({{< relref "#manually-configuring-your-container-for-debugging">}}).
 
 ## (Recommended) Debugging using Cloud Code
 
-The easiest way to debug using Skaffold is by using the [Cloud Code IDE extension]({{< relref "../install/#managed-ide">}}) for Visual Studio Code, JetBrains IDEs, and Cloud Shell. Cloud Code will automatically configure container images for debugging so you can debug Kubernetes services just like how you would debug a local service in your IDE.
+The easiest way to debug using Skaffold is by using the [Cloud Code IDE extension]({{< relref "../install/#managed-ide">}}) for Visual Studio Code, 
+JetBrains IDEs, and Cloud Shell. Cloud Code will automatically configure container images for debugging so you can debug Kubernetes services just like how
+you would debug a local service in your IDE.
 
 For more information, see the corresponding documentation for [VS Code](https://cloud.google.com/code/docs/vscode/debug), [IntelliJ](https://cloud.google.com/code/docs/intellij/kubernetes-debugging) and [Cloud Shell](https://cloud.google.com/code/docs/shell/debug).
 
@@ -43,7 +50,7 @@ On recognizing a Go-based container image, `debug` rewrites the container image'
 entrypoint to invoke your application using `dlv`:
 
 ```
-dlv exec --headless --continue --accept-multiclient --listen=:56268 --api-version=2 <app> -- <args> ...
+	dlv exec --headless --continue --accept-multiclient --listen=:56268 --api-version=2 <app> -- <args> ...
 ```
 
 ##### Skaffold debug using the JetBrains GoLand and IntelliJ Ultimate
